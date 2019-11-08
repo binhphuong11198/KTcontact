@@ -35,10 +35,11 @@
 			// var $sql;
 	    	if (isset($_SESSION["login"])) {
 	    		$ssuser = $_SESSION["login"];
-	    		$sql = "SELECT * FROM `danh ba` WHERE maUser= $ssuser";
+
+	    		$sql = "SELECT danhba.* FROM danhba INNER JOIN nhandan ON danhba.maNhan=nhandan.maNhan WHERE nhandan.maUser= $ssuser";
 	    	}
 	    	else{
-	    		$sql = "SELECT * FROM `danh ba`";
+	    		$sql = "SELECT * FROM `danhba`";
 	    	}
 	    	
 	    	$result= $con->query($sql);
@@ -57,7 +58,7 @@
 	    	$con = danhba::connect();
 			// thao tac voi csdl
 	    	// $ssuser = $_SESSION["login"];
-	    	$sql = "SELECT * FROM `danh ba` WHERE maNhan=$mn ";
+	    	$sql = "SELECT * FROM `danhba` WHERE maNhan=$mn ";
 	    	$result= $con->query($sql);
 	    	$lsDanhBa = array();
 	    	if($result->num_row >= 0){
@@ -74,7 +75,7 @@
 	    	$con = danhba::connect();
 			// thao tac voi csdl
 	    	$ssuser = $_SESSION["login"];
-	    	$sql = "INSERT INTO `danh ba` (`maDB`, `maNhan`, `maUser`, `tenDB`, `email`, `Sdt`) VALUES (NULL, '$nhomadd', '$tenadd',$ssuser, '$emailadd', '$phoneadd')";
+	    	$sql = "INSERT INTO `danhba` (`maDB`, `maNhan`, `tenDB`, `email`, `Sdt`) VALUES (NULL, '$nhomadd', '$tenadd', '$emailadd', '$phoneadd')";
 	    	$result= $con->query($sql);
 	    	
 	    	$con->close();
@@ -114,7 +115,8 @@
 		}
 		static function getListNhom(){
 			$con = nhom::connect();
-			$sql = "SELECT * FROM `nhan dan`";
+			$ssuser = $_SESSION["login"];
+			$sql = "SELECT * FROM `nhandan` WHERE maUser= $ssuser";
 			$result = $con->query($sql);
 			$lsNhom= array();
 			if ($result->num_row >=0) {
@@ -129,7 +131,7 @@
 		static function addNhom($nhomadd){
 			$con = nhom::connect();
 			$ssuser = $_SESSION["login"];
-			$sql = "INSERT INTO `nhan dan` (`maNhan`, `maUser`, `tenNhan`) VALUES (NULL, $ssuser ,'$nhomadd')";
+			$sql = "INSERT INTO `nhandan` (`maNhan`, `maUser`, `tenNhan`) VALUES (NULL, $ssuser ,'$nhomadd')";
 			$result = $con->query($sql);
 			$con->close();
 		}

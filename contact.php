@@ -122,9 +122,8 @@ include_once("model/data.php"); ?>
 <div class="page-topbar">
  <div class="logo-area"> </div>
  <div class="quick-area">
-
+<button id="shiled-button"><i class="fa fa-bars" aria-hidden="true"></i></button>
   <ul class="pull-left info-menu  user-notify">
-    <button id="menu_icon" class="d-flex justify-content-center align-middle"><i class="fa fa-bars" aria-hidden="true"></i></button>
     <a class="danh-ba" href="contact.php">
       <img src="img/contacts_48dp.png" alt="contacts" id="menu_contacts"> <span id="danhba"> Danh bạ</span>
     </a>
@@ -303,7 +302,7 @@ include_once("model/data.php"); ?>
 <script type="text/javascript">
   $(document).ready(function() {
     
-    $('button#menu_icon').click(function() {
+    $('button#shiled-button').click(function() {
       if ($('.page-sidebar').hasClass('expandit')){
         $('.page-sidebar').addClass('collapseit');
         $('.page-sidebar').removeClass('expandit');
@@ -344,6 +343,9 @@ include_once("model/data.php"); ?>
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
+    function myFunction() {
+  alert("Hello! I am an alert box!");
+}
   });
 </script>
 </body>
