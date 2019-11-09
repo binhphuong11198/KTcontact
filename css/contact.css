@@ -213,7 +213,11 @@ li.profile img {
 .page-topbar button:focus {
     outline: none;
 }
-
+span.count-db {
+    color: cadetblue;
+    right: 25px;
+    position: absolute;
+}
 .page-topbar button {
     border: none;
     width: 50px;

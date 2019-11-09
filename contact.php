@@ -18,11 +18,11 @@ include_once("model/data.php"); ?>
 <body>
   <?php 
   if (!isset($_SESSION["login"])) {
-    header('Location: /login.php');
+    header('Location: login.php');
   }
   if(isset($_REQUEST['dangxuat'])){
     session_unset();
-    header('Location: /login.php');
+    header('Location: login.php');
   }
   if (isset($_REQUEST['submitadd'])) {
     $tenadd   = $_REQUEST['tenadd'];
@@ -30,13 +30,13 @@ include_once("model/data.php"); ?>
     $phoneadd = $_REQUEST['phoneadd'];
     $addNhom  = $_REQUEST['addNhom'];
     danhba::addDB($tenadd, $emailadd, $phoneadd,$addNhom);
-    header('Location: /contact.php');
+    header('Location: contact.php');
   }
   elseif (isset($_REQUEST['submitnhomadd'])) {
     $nhomadd= $_REQUEST['nhomadd'];
     if ($nhomadd !="") {
       nhom::addNhom($nhomadd);
-      header('Location: /contact.php');
+      header('Location: contact.php');
     }
   }
   ?>
@@ -122,7 +122,7 @@ include_once("model/data.php"); ?>
 <div class="page-topbar">
  <div class="logo-area"> </div>
  <div class="quick-area">
-<button id="shiled-button"><i class="fa fa-bars" aria-hidden="true"></i></button>
+  <button id="shiled-button"><i class="fa fa-bars" aria-hidden="true"></i></button>
   <ul class="pull-left info-menu  user-notify">
     <a class="danh-ba" href="contact.php">
       <img src="img/contacts_48dp.png" alt="contacts" id="menu_contacts"> <span id="danhba"> Danh bạ</span>
@@ -205,7 +205,11 @@ include_once("model/data.php"); ?>
         <span class="sidebar-icon">
           <i class="fas fa-user-alt"></i>
         </span> 
-        <span class="menu-title">Danh bạ</span>
+        <span class="menu-title">Danh bạ <span class="count-db" style="
+        color: cadetblue;
+        right: 25px;
+        position: absolute;
+        "><?php $dsBDa = danhba::getListDB(); echo count($dsBDa); ?></span></span>
       </a>
     </li>
     <li>
@@ -344,8 +348,8 @@ include_once("model/data.php"); ?>
       });
     });
     function myFunction() {
-  alert("Hello! I am an alert box!");
-}
+      alert("Hello! I am an alert box!");
+    }
   });
 </script>
 </body>

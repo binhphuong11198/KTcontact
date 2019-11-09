@@ -29,7 +29,7 @@ include_once("model/data.php");
 <body>
 	<?php if (isset($_REQUEST['submitlogin'])) {
 		if (!empty($_SESSION["login"])) {
-			header('Location: /contact.php');
+			header('Location: contact.php');
 		}
 		else{
 			$loginemail = $_REQUEST['loginemail'];
@@ -43,18 +43,18 @@ include_once("model/data.php");
 				$row = mysqli_fetch_array($con->query($sql));
 				
 				if($row['password']!= $loginpass){
-					header('Location: /login.php');
+					header('Location: login.php');
 					exit();
 				}else{
 					$_SESSION["login"] = $row['maUser'];
-					header('Location: /contact.php');
+					header('Location: contact.php');
 				}
 			}
 		}
 
 	}
 	elseif(isset($_SESSION["login"])){
-		header('Location: /contact.php');
+		header('Location: contact.php');
 	} ?>
 	<div class="limiter">
 
