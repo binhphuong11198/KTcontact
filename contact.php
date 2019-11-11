@@ -127,9 +127,7 @@ include_once("model/data.php"); ?>
     <a class="danh-ba" href="contact.php">
       <img src="img/contacts_48dp.png" alt="contacts" id="menu_contacts"> <span id="danhba"> Danh bạ</span>
     </a>
-
   </ul>
-
   <div class="search-container">
     <form action="/action_page.php" class="search">
       <input type="text" placeholder="Search.." name="search" id="search">
@@ -201,7 +199,7 @@ include_once("model/data.php"); ?>
   <ul class="wraplist" style="height: auto;"> 
     <!--          <li class="menusection">Main</li>-->
     <li>
-      <a href="">
+      <a href="contact.php">
         <span class="sidebar-icon">
           <i class="fas fa-user-alt"></i>
         </span> 
@@ -247,7 +245,7 @@ include_once("model/data.php"); ?>
         foreach ($listnhom as $value) { ?>
           <li><a href="?mn=<?php echo $value->maNhom; ?>" title="">
             <svg width="20" height="20" viewBox="0 0 24 24" class="NSy2Hd RTiFqe undefined"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z"></path></svg>
-            <?php echo $value->tenNhom; ?></a></li>
+            <span> <?php echo $value->tenNhom; ?></span></a></li>
           <?php }
           ?>
           <li><a href="#" data-toggle="modal" data-target="#exampleModalnhom" title="#"><i class="fas fa-plus" ></i>Tạo nhãn</a></li>
@@ -305,7 +303,7 @@ include_once("model/data.php"); ?>
 </section>
 <script type="text/javascript">
   $(document).ready(function() {
-    
+
     $('button#shiled-button').click(function() {
       if ($('.page-sidebar').hasClass('expandit')){
         $('.page-sidebar').addClass('collapseit');

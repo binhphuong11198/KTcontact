@@ -19,10 +19,10 @@
 	    	$this->idnhan  = $idnhan;
 	    	$this->tendb   = $tendb;
 	    	$this->emaildb = $emaildb;
-	    	$this->sdtdb  = $sdtdb;
+	    	$this->sdtdb   = $sdtdb;
 	    }
 	    static function connect(){
-	    	$con = new mysqli("localhost","root","","contact");
+	    	$con = new mysqli("localhost","root","","contactnew");
 	    	$con->set_charset("utf8");
 	    	if ($con->connect_error) {
 	    		die("ket noi that bai:" .$con->connect_error );
@@ -35,18 +35,16 @@
 			// var $sql;
 	    	if (isset($_SESSION["login"])) {
 	    		$ssuser = $_SESSION["login"];
-
-	    		$sql = "SELECT danhba.* FROM danhba INNER JOIN nhandan ON danhba.maNhan=nhandan.maNhan WHERE nhandan.maUser= $ssuser";
+	    		$sql = "SELECT danhba.* FROM danhba INNER JOIN nhan ON danhba.maNhan=nhan.maNhan WHERE nhan.maUser= $ssuser";
 	    	}
 	    	else{
 	    		$sql = "SELECT * FROM `danhba`";
 	    	}
-	    	
 	    	$result= $con->query($sql);
 	    	$lsDanhBa = array();
-	    	if($result->num_row >= 0){
+	    	if($result->num_rows >= 0){
 	    		while ($row = $result->fetch_assoc()) {
-	    			$db =new danhba($row["maDB"],$row["maNhan"],$row["tenDB"], $row["email"], $row["Sdt"]);
+	    			$db =new danhba($row["MaDB"],$row["maNhan"],$row["tenDB"], $row["email"], $row["sdt"]);
 	    			array_push($lsDanhBa,$db);
 	    		}
 	    	}
@@ -58,10 +56,10 @@
 	    	$con = danhba::connect();
 			// thao tac voi csdl
 	    	// $ssuser = $_SESSION["login"];
-	    	$sql = "SELECT * FROM `danhba` WHERE maNhan=$mn ";
+	    	$sql = "SELECT * FROM `danhba` WHERE maNhan=$mn";
 	    	$result= $con->query($sql);
 	    	$lsDanhBa = array();
-	    	if($result->num_row >= 0){
+	    	if($result->num_rows >= 0){
 	    		while ($row = $result->fetch_assoc()) {
 	    			$db =new danhba($row["maDB"],$row["maNhan"],$row["tenDB"], $row["email"], $row["Sdt"]);
 	    			array_push($lsDanhBa,$db);
@@ -88,7 +86,7 @@
 	    	$result= $con->query($sql);
 	    	if($result->num_row >= 0){
 	    		while ($row = $result->fetch_assoc()) {
-	    			$db =$row['Ten'];
+	    			$db =$row['tenUser'];
 	    		}
 	    	}
 	    	$con->close();
@@ -101,12 +99,14 @@
 	{
 		var $maNhom;
 		var $tenNhom;
-		function __construct($maNhom, $tenNhom){
+		var $muser;
+		function __construct($maNhom, $tenNhom, $muser){
 			$this->maNhom  =$maNhom;
 			$this->tenNhom =$tenNhom;
+			$this->muser   =$muser;
 		}
 		static function connect(){
-			$con = new mysqli("localhost","root","","contact");
+			$con = new mysqli("localhost","root","","contactnew");
 			$con->set_charset("utf8");
 			if ($con->connect_error) {
 				die("ket noi that bai:" .$con->connect_error );
@@ -116,12 +116,12 @@
 		static function getListNhom(){
 			$con = nhom::connect();
 			$ssuser = $_SESSION["login"];
-			$sql = "SELECT * FROM `nhandan` WHERE maUser= $ssuser";
+			$sql = "SELECT * FROM `nhan` WHERE maUser= $ssuser";
 			$result = $con->query($sql);
 			$lsNhom= array();
-			if ($result->num_row >=0) {
+			if ($result->num_rows >=0) {
 				while ($row = $result->fetch_assoc()) {
-					$nhom = new nhom($row["maNhan"], $row["tenNhan"]);
+					$nhom = new nhom($row["maNhan"], $row["TenNhan"], $row["$ssuser"]);
 					array_push($lsNhom, $nhom);
 				}
 			}
@@ -131,7 +131,7 @@
 		static function addNhom($nhomadd){
 			$con = nhom::connect();
 			$ssuser = $_SESSION["login"];
-			$sql = "INSERT INTO `nhandan` (`maNhan`, `maUser`, `tenNhan`) VALUES (NULL, $ssuser ,'$nhomadd')";
+			$sql = "INSERT INTO `nhandan` (`maNhan`, `maUser`, `tenNhan`) VALUES (NULL, $ssuser ,$nhomadd)";
 			$result = $con->query($sql);
 			$con->close();
 		}

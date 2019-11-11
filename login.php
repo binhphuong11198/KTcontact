@@ -39,10 +39,10 @@ include_once("model/data.php");
 				exit;
 			}
 			else{
-				$sql = "SELECT * FROM `user` WHERE username='$loginemail'";
+				$sql = "SELECT * FROM `user` WHERE userName='$loginemail'";
 				$row = mysqli_fetch_array($con->query($sql));
 				
-				if($row['password']!= $loginpass){
+				if($row['passWord']!= $loginpass){
 					header('Location: login.php');
 					exit();
 				}else{
